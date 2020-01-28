@@ -31,6 +31,6 @@ public class MainApplication {
     public void listen(ConsumerRecord<?, ?> cr) throws Exception{
         logger.info(cr.toString());
         // String transactionTopic = cr.value
-        this.template.send("engineOneTopic", cr.toString());
+        this.template.send("publishDataTopic", cr.value().toString());
     }
 }
