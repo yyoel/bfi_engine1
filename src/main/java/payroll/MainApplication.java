@@ -18,12 +18,15 @@ public class MainApplication {
         SpringApplication.run(MainApplication.class, args);
     }
 
+    //Inject KafkaTempate Class
     @Autowired
     private KafkaTemplate<String, String> template;
 
+    //Listen to topic from Sender
     @KafkaListener(topics = "transactionTopic")
     public void listen(ConsumerRecord<?, ?> cr) throws Exception{
         logger.info(cr.toString());
+        //publish topic with only a Value
         this.template.send("publishDataTopic", cr.value().toString());
     }
 }
